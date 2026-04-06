@@ -1,0 +1,108 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1e1e1e;font-family:'Consolas','Courier New',monospace;font-size:12.5px}
+.window{width:1050px;background:#1e1e1e;border-radius:8px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.titlebar{background:#3c3c3c;padding:8px 16px;display:flex;align-items:center;gap:8px}
+.dot{width:12px;height:12px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.title-text{color:#ccc;font-size:13px;margin-left:12px;font-family:'Segoe UI',sans-serif}
+.layout{display:flex}
+.sidebar{width:190px;background:#252526;font-family:'Segoe UI',sans-serif;font-size:12px;color:#ccc;padding:8px 0}
+.sidebar-title{padding:6px 12px;font-size:10px;color:#bbb;text-transform:uppercase;letter-spacing:1px}
+.file{padding:3px 8px 3px 28px;cursor:pointer;color:#ccc}
+.file.active{background:#094771;color:#fff}
+.editor{flex:1;display:flex;flex-direction:column}
+.tabs{background:#2d2d2d;display:flex}
+.tab{padding:7px 16px;font-size:12px;font-family:'Segoe UI',sans-serif;color:#969696;border-right:1px solid #3e3e3e}
+.tab.active{background:#1e1e1e;color:#fff;border-top:2px solid #007acc}
+.code-wrap{padding:8px 0 8px 8px;overflow:auto}
+.line{line-height:1.6;white-space:pre;color:#d4d4d4;font-size:12px}
+.ln{color:#666;margin-right:14px;user-select:none}
+.statusbar{background:#007acc;padding:3px 14px;display:flex;font-family:'Segoe UI',sans-serif;font-size:11px;color:#fff;gap:20px}
+.badge{position:absolute;top:48px;right:16px;background:#252526;border:1px solid #007acc;border-radius:5px;padding:5px 10px;font-family:'Segoe UI',sans-serif;font-size:11px;color:#9cdcfe}
+</style></head><body>
+<div class="window" style="position:relative">
+<div class="titlebar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+<div class="title-text">assignment3.php — RISHAV RAJ 23MEI10002 — Visual Studio Code</div></div>
+<div class="badge"><b>Author:</b> RISHAV RAJ &nbsp;|&nbsp; <b>ID:</b> 23MEI10002</div>
+<div class="layout">
+<div class="sidebar"><div class="sidebar-title">Explorer</div>
+<div class="file">📁 PHP_ASSIGNMENTS</div>
+<div class="file active">🐘 assignment3.php</div></div>
+<div class="editor">
+<div class="tabs"><div class="tab active">🐘 assignment3.php ✕</div></div>
+<div class="code-wrap"><div class="line"><span class="ln">  1</span>&lt;?php</div>
+<div class="line"><span class="ln">  2</span>// ============================================================</div>
+<div class="line"><span class="ln">  3</span>// Assignment 3: Daily Expense Tracker</div>
+<div class="line"><span class="ln">  4</span>// Author  : RISHAV RAJ  |  23MEI10002</div>
+<div class="line"><span class="ln">  5</span>// Covers  : Arrays, File Handling, Date &amp; Time, Functions</div>
+<div class="line"><span class="ln">  6</span>// ============================================================</div>
+<div class="line"><span class="ln">  7</span></div>
+<div class="line"><span class="ln">  8</span>$expenseFile = "expenses.txt";</div>
+<div class="line"><span class="ln">  9</span></div>
+<div class="line"><span class="ln"> 10</span>// Store Expense Entry</div>
+<div class="line"><span class="ln"> 11</span>function storeExpense($file, $date, $category, $amount) {</div>
+<div class="line"><span class="ln"> 12</span>    $entry = "$date|$category|$amount\n";</div>
+<div class="line"><span class="ln"> 13</span>    file_put_contents($file, $entry, FILE_APPEND | LOCK_EX);</div>
+<div class="line"><span class="ln"> 14</span>}</div>
+<div class="line"><span class="ln"> 15</span></div>
+<div class="line"><span class="ln"> 16</span>// Load All Expenses into Array</div>
+<div class="line"><span class="ln"> 17</span>function loadExpenses($file) {</div>
+<div class="line"><span class="ln"> 18</span>    $expenses = [];</div>
+<div class="line"><span class="ln"> 19</span>    if (!file_exists($file)) return $expenses;</div>
+<div class="line"><span class="ln"> 20</span>    $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);</div>
+<div class="line"><span class="ln"> 21</span>    foreach ($lines as $line) {</div>
+<div class="line"><span class="ln"> 22</span>        $parts = explode('|', $line);</div>
+<div class="line"><span class="ln"> 23</span>        if (count($parts) === 3) {</div>
+<div class="line"><span class="ln"> 24</span>            $expenses[] = ["date"=&gt;$parts[0],"category"=&gt;$parts[1],</div>
+<div class="line"><span class="ln"> 25</span>                           "amount"=&gt;(float)$parts[2]];</div>
+<div class="line"><span class="ln"> 26</span>        }</div>
+<div class="line"><span class="ln"> 27</span>    }</div>
+<div class="line"><span class="ln"> 28</span>    return $expenses;</div>
+<div class="line"><span class="ln"> 29</span>}</div>
+<div class="line"><span class="ln"> 30</span></div>
+<div class="line"><span class="ln"> 31</span>// Total for a Given Date</div>
+<div class="line"><span class="ln"> 32</span>function totalForDate($expenses, $targetDate) {</div>
+<div class="line"><span class="ln"> 33</span>    $total = 0;</div>
+<div class="line"><span class="ln"> 34</span>    foreach ($expenses as $exp) {</div>
+<div class="line"><span class="ln"> 35</span>        if ($exp['date'] === $targetDate) $total += $exp['amount'];</div>
+<div class="line"><span class="ln"> 36</span>    }</div>
+<div class="line"><span class="ln"> 37</span>    return $total;</div>
+<div class="line"><span class="ln"> 38</span>}</div>
+<div class="line"><span class="ln"> 39</span></div>
+<div class="line"><span class="ln"> 40</span>// Display Expenses by Date</div>
+<div class="line"><span class="ln"> 41</span>function displayByDate($expenses, $targetDate) {</div>
+<div class="line"><span class="ln"> 42</span>    $found = false;</div>
+<div class="line"><span class="ln"> 43</span>    foreach ($expenses as $exp) {</div>
+<div class="line"><span class="ln"> 44</span>        if ($exp['date'] === $targetDate) {</div>
+<div class="line"><span class="ln"> 45</span>            printf("  %-14s %-18s Rs. %8.2f\n",</div>
+<div class="line"><span class="ln"> 46</span>                   $exp['date'], $exp['category'], $exp['amount']);</div>
+<div class="line"><span class="ln"> 47</span>            $found = true;</div>
+<div class="line"><span class="ln"> 48</span>        }</div>
+<div class="line"><span class="ln"> 49</span>    }</div>
+<div class="line"><span class="ln"> 50</span>    if (!$found) echo "  No expenses for $targetDate.\n";</div>
+<div class="line"><span class="ln"> 51</span>}</div>
+<div class="line"><span class="ln"> 52</span></div>
+<div class="line"><span class="ln"> 53</span>// Simulated Entries</div>
+<div class="line"><span class="ln"> 54</span>$entries = [</div>
+<div class="line"><span class="ln"> 55</span>    ["date"=&gt;"2026-04-06","category"=&gt;"Food",      "amount"=&gt;250.00],</div>
+<div class="line"><span class="ln"> 56</span>    ["date"=&gt;"2026-04-06","category"=&gt;"Transport", "amount"=&gt;80.00 ],</div>
+<div class="line"><span class="ln"> 57</span>    ["date"=&gt;"2026-04-06","category"=&gt;"Stationery","amount"=&gt;150.00],</div>
+<div class="line"><span class="ln"> 58</span>    ["date"=&gt;"2026-04-05","category"=&gt;"Food",      "amount"=&gt;200.00],</div>
+<div class="line"><span class="ln"> 59</span>    ["date"=&gt;"2026-04-05","category"=&gt;"Internet",  "amount"=&gt;499.00],</div>
+<div class="line"><span class="ln"> 60</span>    ["date"=&gt;"2026-04-04","category"=&gt;"Books",     "amount"=&gt;600.00],</div>
+<div class="line"><span class="ln"> 61</span>];</div>
+<div class="line"><span class="ln"> 62</span>if (file_exists($expenseFile)) unlink($expenseFile);</div>
+<div class="line"><span class="ln"> 63</span>foreach ($entries as $e) {</div>
+<div class="line"><span class="ln"> 64</span>    storeExpense($expenseFile,$e['date'],$e['category'],$e['amount']);</div>
+<div class="line"><span class="ln"> 65</span>    printf("  Saved: %-12s %-15s Rs.%.2f\n",$e['date'],$e['category'],$e['amount']);</div>
+<div class="line"><span class="ln"> 66</span>}</div>
+<div class="line"><span class="ln"> 67</span>$allExpenses = loadExpenses($expenseFile);</div>
+<div class="line"><span class="ln"> 68</span>$today = date("Y-m-d");</div>
+<div class="line"><span class="ln"> 69</span>displayByDate($allExpenses, $today);</div>
+<div class="line"><span class="ln"> 70</span>$todayTotal = totalForDate($allExpenses, $today);</div>
+<div class="line"><span class="ln"> 71</span>printf("  Total for Today: Rs. %.2f\n", $todayTotal);</div>
+<div class="line"><span class="ln"> 72</span>?&gt;</div></div></div></div>
+<div class="statusbar"><span>🔀 main</span><span style="flex:1"></span><span>PHP</span><span>UTF-8</span><span>RISHAV RAJ 23MEI10002</span></div>
+</div></body></html>

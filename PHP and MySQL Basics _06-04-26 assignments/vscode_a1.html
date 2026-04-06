@@ -1,0 +1,98 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1e1e1e;font-family:'Consolas','Courier New',monospace;font-size:12.5px}
+.window{width:1050px;background:#1e1e1e;border-radius:8px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.titlebar{background:#3c3c3c;padding:8px 16px;display:flex;align-items:center;gap:8px}
+.dot{width:12px;height:12px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.title-text{color:#ccc;font-size:13px;margin-left:12px;font-family:'Segoe UI',sans-serif}
+.layout{display:flex}
+.sidebar{width:190px;background:#252526;font-family:'Segoe UI',sans-serif;font-size:12px;color:#ccc;padding:8px 0}
+.sidebar-title{padding:6px 12px;font-size:10px;color:#bbb;text-transform:uppercase;letter-spacing:1px}
+.file{padding:3px 8px 3px 28px;cursor:pointer;color:#ccc}
+.file.active{background:#094771;color:#fff}
+.editor{flex:1;display:flex;flex-direction:column}
+.tabs{background:#2d2d2d;display:flex}
+.tab{padding:7px 16px;font-size:12px;font-family:'Segoe UI',sans-serif;color:#969696;border-right:1px solid #3e3e3e}
+.tab.active{background:#1e1e1e;color:#fff;border-top:2px solid #007acc}
+.code-wrap{padding:8px 0 8px 8px;overflow:auto}
+.line{line-height:1.6;white-space:pre;color:#d4d4d4;font-size:12px}
+.ln{color:#666;margin-right:14px;user-select:none}
+.statusbar{background:#007acc;padding:3px 14px;display:flex;font-family:'Segoe UI',sans-serif;font-size:11px;color:#fff;gap:20px}
+.badge{position:absolute;top:48px;right:16px;background:#252526;border:1px solid #007acc;border-radius:5px;padding:5px 10px;font-family:'Segoe UI',sans-serif;font-size:11px;color:#9cdcfe}
+</style></head><body>
+<div class="window" style="position:relative">
+<div class="titlebar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+<div class="title-text">assignment1.php — RISHAV RAJ 23MEI10002 — Visual Studio Code</div></div>
+<div class="badge"><b>Author:</b> RISHAV RAJ &nbsp;|&nbsp; <b>ID:</b> 23MEI10002</div>
+<div class="layout">
+<div class="sidebar"><div class="sidebar-title">Explorer</div>
+<div class="file">📁 PHP_ASSIGNMENTS</div>
+<div class="file active">🐘 assignment1.php</div></div>
+<div class="editor">
+<div class="tabs"><div class="tab active">🐘 assignment1.php ✕</div></div>
+<div class="code-wrap"><div class="line"><span class="ln">  1</span>&lt;?php</div>
+<div class="line"><span class="ln">  2</span>// ============================================================</div>
+<div class="line"><span class="ln">  3</span>// Assignment 1: Student Data Management System</div>
+<div class="line"><span class="ln">  4</span>// Author  : RISHAV RAJ  |  23MEI10002</div>
+<div class="line"><span class="ln">  5</span>// Covers  : Arrays, Functions, Date &amp; Time</div>
+<div class="line"><span class="ln">  6</span>// ============================================================</div>
+<div class="line"><span class="ln">  7</span></div>
+<div class="line"><span class="ln">  8</span>// Associative Array of Students</div>
+<div class="line"><span class="ln">  9</span>$students = [</div>
+<div class="line"><span class="ln"> 10</span>    ["name" =&gt; "Aarav Sharma",  "marks" =&gt; 92, "dob" =&gt; "2003-05-14"],</div>
+<div class="line"><span class="ln"> 11</span>    ["name" =&gt; "Priya Mehta",   "marks" =&gt; 78, "dob" =&gt; "2002-11-22"],</div>
+<div class="line"><span class="ln"> 12</span>    ["name" =&gt; "Rohit Kumar",   "marks" =&gt; 55, "dob" =&gt; "2004-01-08"],</div>
+<div class="line"><span class="ln"> 13</span>    ["name" =&gt; "Sneha Patel",   "marks" =&gt; 85, "dob" =&gt; "2003-07-30"],</div>
+<div class="line"><span class="ln"> 14</span>    ["name" =&gt; "Vikram Yadav",  "marks" =&gt; 40, "dob" =&gt; "2002-03-17"],</div>
+<div class="line"><span class="ln"> 15</span>];</div>
+<div class="line"><span class="ln"> 16</span></div>
+<div class="line"><span class="ln"> 17</span>// Function: Calculate Average Marks</div>
+<div class="line"><span class="ln"> 18</span>function calculateAverage($studentsArray) {</div>
+<div class="line"><span class="ln"> 19</span>    $total = 0;</div>
+<div class="line"><span class="ln"> 20</span>    foreach ($studentsArray as $student) {</div>
+<div class="line"><span class="ln"> 21</span>        $total += $student['marks'];</div>
+<div class="line"><span class="ln"> 22</span>    }</div>
+<div class="line"><span class="ln"> 23</span>    return round($total / count($studentsArray), 2);</div>
+<div class="line"><span class="ln"> 24</span>}</div>
+<div class="line"><span class="ln"> 25</span></div>
+<div class="line"><span class="ln"> 26</span>// Function: Determine Grade</div>
+<div class="line"><span class="ln"> 27</span>function determineGrade($marks) {</div>
+<div class="line"><span class="ln"> 28</span>    if      ($marks &gt;= 90) return "A+";</div>
+<div class="line"><span class="ln"> 29</span>    elseif  ($marks &gt;= 80) return "A";</div>
+<div class="line"><span class="ln"> 30</span>    elseif  ($marks &gt;= 70) return "B";</div>
+<div class="line"><span class="ln"> 31</span>    elseif  ($marks &gt;= 60) return "C";</div>
+<div class="line"><span class="ln"> 32</span>    elseif  ($marks &gt;= 50) return "D";</div>
+<div class="line"><span class="ln"> 33</span>    else                   return "F";</div>
+<div class="line"><span class="ln"> 34</span>}</div>
+<div class="line"><span class="ln"> 35</span></div>
+<div class="line"><span class="ln"> 36</span>// Function: Calculate Age from DOB</div>
+<div class="line"><span class="ln"> 37</span>function calculateAge($dob) {</div>
+<div class="line"><span class="ln"> 38</span>    $birthDate = new DateTime($dob);</div>
+<div class="line"><span class="ln"> 39</span>    $today     = new DateTime();</div>
+<div class="line"><span class="ln"> 40</span>    $age       = $today-&gt;diff($birthDate);</div>
+<div class="line"><span class="ln"> 41</span>    return $age-&gt;y;</div>
+<div class="line"><span class="ln"> 42</span>}</div>
+<div class="line"><span class="ln"> 43</span></div>
+<div class="line"><span class="ln"> 44</span>// Display Table</div>
+<div class="line"><span class="ln"> 45</span>echo str_repeat("=", 75) . "\n";</div>
+<div class="line"><span class="ln"> 46</span>echo "        STUDENT DATA MANAGEMENT SYSTEM\n";</div>
+<div class="line"><span class="ln"> 47</span>echo "        Author: RISHAV RAJ | 23MEI10002\n";</div>
+<div class="line"><span class="ln"> 48</span>echo str_repeat("=", 75) . "\n";</div>
+<div class="line"><span class="ln"> 49</span>printf("%-20s %-8s %-12s %-6s %-5s\n", "Name","Marks","DOB","Age","Grade");</div>
+<div class="line"><span class="ln"> 50</span>echo str_repeat("-", 75) . "\n";</div>
+<div class="line"><span class="ln"> 51</span>foreach ($students as $student) {</div>
+<div class="line"><span class="ln"> 52</span>    $grade = determineGrade($student['marks']);</div>
+<div class="line"><span class="ln"> 53</span>    $age   = calculateAge($student['dob']);</div>
+<div class="line"><span class="ln"> 54</span>    printf("%-20s %-8d %-12s %-6d %-5s\n",</div>
+<div class="line"><span class="ln"> 55</span>        $student['name'], $student['marks'], $student['dob'], $age, $grade);</div>
+<div class="line"><span class="ln"> 56</span>}</div>
+<div class="line"><span class="ln"> 57</span>echo str_repeat("=", 75) . "\n";</div>
+<div class="line"><span class="ln"> 58</span>$avg = calculateAverage($students);</div>
+<div class="line"><span class="ln"> 59</span>echo "  Class Average Marks : $avg\n";</div>
+<div class="line"><span class="ln"> 60</span>echo "  Report Generated On : " . date("d-m-Y  H:i:s") . "\n";</div>
+<div class="line"><span class="ln"> 61</span>echo str_repeat("=", 75) . "\n";</div>
+<div class="line"><span class="ln"> 62</span>?&gt;</div></div></div></div>
+<div class="statusbar"><span>🔀 main</span><span style="flex:1"></span><span>PHP</span><span>UTF-8</span><span>RISHAV RAJ 23MEI10002</span></div>
+</div></body></html>

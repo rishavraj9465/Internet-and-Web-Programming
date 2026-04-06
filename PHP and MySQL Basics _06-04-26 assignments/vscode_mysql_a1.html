@@ -1,0 +1,140 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;font-family:'Consolas','Courier New',monospace}
+.wrap{display:flex;gap:20px;padding:20px;align-items:flex-start}
+/* VS Code panel */
+.vscode{width:660px;background:#1e1e1e;border-radius:8px;overflow:hidden;box-shadow:0 16px 50px rgba(0,0,0,.8);flex-shrink:0}
+.titlebar{background:#3c3c3c;padding:8px 14px;display:flex;align-items:center;gap:7px}
+.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.ttxt{color:#ccc;font-size:12px;margin-left:10px;font-family:'Segoe UI',sans-serif}
+.layout{display:flex}
+.sidebar{width:160px;background:#252526;font-family:'Segoe UI',sans-serif;font-size:11px;color:#ccc;padding:6px 0}
+.stitle{padding:5px 10px;font-size:10px;color:#bbb;text-transform:uppercase;letter-spacing:1px}
+.sfile{padding:3px 6px 3px 20px;color:#ccc;font-size:11px}
+.sfile.active{background:#094771;color:#fff}
+.editor{flex:1;display:flex;flex-direction:column}
+.tabs{background:#2d2d2d;display:flex}
+.tab{padding:7px 14px;font-size:11px;font-family:'Segoe UI',sans-serif;color:#fff;border-top:2px solid #007acc;background:#1e1e1e}
+.codewrap{padding:6px 0 6px 6px;overflow:auto;max-height:520px}
+.line{line-height:1.55;white-space:pre;color:#d4d4d4;font-size:11.5px}
+.ln{color:#666;margin-right:12px;user-select:none;min-width:26px;display:inline-block;text-align:right}
+.sbar{background:#007acc;padding:3px 12px;display:flex;font-family:'Segoe UI',sans-serif;font-size:10px;color:#fff;gap:16px}
+.badge{position:absolute;top:45px;right:10px;background:#252526;border:1px solid #007acc;border-radius:4px;padding:4px 8px;font-family:'Segoe UI',sans-serif;font-size:10px;color:#9cdcfe;z-index:9}
+/* Terminal panel */
+.terminal{width:420px;background:#0c0c0c;border-radius:8px;overflow:hidden;box-shadow:0 16px 50px rgba(0,0,0,.8)}
+.tbar{background:#2d2d2d;padding:8px 14px;display:flex;align-items:center;gap:7px}
+.ttxt2{color:#ccc;font-family:'Segoe UI',sans-serif;font-size:12px;margin-left:10px}
+.tbody{padding:14px 16px 18px 16px}
+.prompt{color:#4caf50;font-size:12px}
+.ppath{color:#569cd6}
+.oline{line-height:1.6;white-space:pre;color:#f0f0f0;font-size:12px}
+.cursor{display:inline-block;width:7px;height:13px;background:#4caf50;vertical-align:middle;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+</style></head><body>
+<div class="wrap">
+  <!-- VS CODE -->
+  <div class="vscode" style="position:relative">
+    <div class="titlebar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <div class="ttxt">assignment1_mysql.php — VS Code</div>
+    </div>
+    <div class="badge"><b>RISHAV RAJ</b> &nbsp;|&nbsp; 23MEI10002</div>
+    <div class="layout">
+      <div class="sidebar">
+        <div class="stitle">Explorer</div>
+        <div class="sfile">📁 MYSQL_ASSIGNMENTS</div>
+        <div class="sfile active">🐘 assignment1_mysql.php</div>
+        <div class="sfile">📄 schema.sql</div>
+      </div>
+      <div class="editor">
+        <div class="tabs"><div class="tab">🐘 assignment1_mysql.php ✕</div></div>
+        <div class="codewrap"><div class="line"><span class="ln">  1</span>&lt;?php</div>
+<div class="line"><span class="ln">  2</span>// Assignment 1: User Registration &amp; Login System</div>
+<div class="line"><span class="ln">  3</span>// Author: RISHAV RAJ | 23MEI10002</div>
+<div class="line"><span class="ln">  4</span>// Covers: MySQL, PHP-MySQL, Sessions, Cookies</div>
+<div class="line"><span class="ln">  5</span></div>
+<div class="line"><span class="ln">  6</span>define('DB_HOST','localhost');</div>
+<div class="line"><span class="ln">  7</span>define('DB_NAME','user_auth_db');</div>
+<div class="line"><span class="ln">  8</span></div>
+<div class="line"><span class="ln">  9</span>function getConnection() {</div>
+<div class="line"><span class="ln"> 10</span>    $conn = new mysqli(DB_HOST,DB_USER,DB_PASS,DB_NAME);</div>
+<div class="line"><span class="ln"> 11</span>    if ($conn-&gt;connect_error) die('DB Error');</div>
+<div class="line"><span class="ln"> 12</span>    return $conn;</div>
+<div class="line"><span class="ln"> 13</span>}</div>
+<div class="line"><span class="ln"> 14</span></div>
+<div class="line"><span class="ln"> 15</span>function registerUser($name, $email, $password) {</div>
+<div class="line"><span class="ln"> 16</span>    $conn     = getConnection();</div>
+<div class="line"><span class="ln"> 17</span>    $passHash = hash('sha256', $password);</div>
+<div class="line"><span class="ln"> 18</span>    $stmt = $conn-&gt;prepare(</div>
+<div class="line"><span class="ln"> 19</span>        'INSERT INTO users(name,email,password) VALUES(?,?,?)');</div>
+<div class="line"><span class="ln"> 20</span>    $stmt-&gt;bind_param('sss',$name,$email,$passHash);</div>
+<div class="line"><span class="ln"> 21</span>    return $stmt-&gt;execute();</div>
+<div class="line"><span class="ln"> 22</span>}</div>
+<div class="line"><span class="ln"> 23</span></div>
+<div class="line"><span class="ln"> 24</span>function loginUser($email, $password, $rememberMe=false) {</div>
+<div class="line"><span class="ln"> 25</span>    session_start();</div>
+<div class="line"><span class="ln"> 26</span>    $conn  = getConnection();</div>
+<div class="line"><span class="ln"> 27</span>    $hash  = hash('sha256',$password);</div>
+<div class="line"><span class="ln"> 28</span>    $stmt  = $conn-&gt;prepare(</div>
+<div class="line"><span class="ln"> 29</span>        'SELECT id,name FROM users WHERE email=? AND password=?');</div>
+<div class="line"><span class="ln"> 30</span>    $stmt-&gt;bind_param('ss',$email,$hash);</div>
+<div class="line"><span class="ln"> 31</span>    $stmt-&gt;execute();</div>
+<div class="line"><span class="ln"> 32</span>    $res   = $stmt-&gt;get_result();</div>
+<div class="line"><span class="ln"> 33</span>    if ($res-&gt;num_rows === 1) {</div>
+<div class="line"><span class="ln"> 34</span>        $user = $res-&gt;fetch_assoc();</div>
+<div class="line"><span class="ln"> 35</span>        $_SESSION['user_id']   = $user['id'];</div>
+<div class="line"><span class="ln"> 36</span>        $_SESSION['user_name'] = $user['name'];</div>
+<div class="line"><span class="ln"> 37</span>        $_SESSION['logged_in'] = true;</div>
+<div class="line"><span class="ln"> 38</span>        if ($rememberMe)</div>
+<div class="line"><span class="ln"> 39</span>            setcookie('remember_email',$email,time()+604800,'/');</div>
+<div class="line"><span class="ln"> 40</span>        return ['status'=&gt;true,'msg'=&gt;'Welcome '.$user['name']];</div>
+<div class="line"><span class="ln"> 41</span>    }</div>
+<div class="line"><span class="ln"> 42</span>    return ['status'=&gt;false,'msg'=&gt;'Invalid credentials.'];</div>
+<div class="line"><span class="ln"> 43</span>}</div>
+<div class="line"><span class="ln"> 44</span></div>
+<div class="line"><span class="ln"> 45</span>function logoutUser() {</div>
+<div class="line"><span class="ln"> 46</span>    session_start(); $_SESSION=[];</div>
+<div class="line"><span class="ln"> 47</span>    session_destroy();</div>
+<div class="line"><span class="ln"> 48</span>    setcookie('remember_email','',time()-3600,'/');</div>
+<div class="line"><span class="ln"> 49</span>    return ['status'=&gt;true,'msg'=&gt;'Logged out.'];</div>
+<div class="line"><span class="ln"> 50</span>}</div>
+<div class="line"><span class="ln"> 51</span>?&gt;</div></div>
+      </div>
+    </div>
+    <div class="sbar"><span>🔀 main</span><span style="flex:1"></span><span>PHP</span><span>UTF-8</span><span>RISHAV RAJ 23MEI10002</span></div>
+  </div>
+  <!-- TERMINAL -->
+  <div class="terminal">
+    <div class="tbar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <div class="ttxt2">Terminal — RISHAV RAJ 23MEI10002</div>
+    </div>
+    <div class="tbody">
+      <div><span class="prompt">rishav@23MEI10002</span>:<span class="ppath">~/MYSQL_ASSIGNMENTS</span>$ php assignment1_mysql.php</div>
+      <br>
+      <div class="oline">  ============================================================</div>
+<div class="oline">  |  USER REGISTRATION &amp; LOGIN SYSTEM                       |</div>
+<div class="oline">  |  Author: RISHAV RAJ | 23MEI10002                        |</div>
+<div class="oline">  ============================================================</div>
+<div class="oline">  -- REGISTRATION --</div>
+<div class="oline">  [OK]  Registration successful!  (Sneha Patel)</div>
+<div class="oline">  [ERR] Email already registered. (Aarav Sharma)</div>
+<div class="oline">  -- LOGIN --</div>
+<div class="oline">  [OK]  Login successful! Welcome, Sneha Patel!</div>
+<div class="oline">        Cookie set for 7 days.</div>
+<div class="oline">  [ERR] Invalid email or password.</div>
+<div class="oline">  -- DASHBOARD --</div>
+<div class="oline">  [OK]  Welcome to Dashboard, Sneha Patel!</div>
+<div class="oline">  -- LOGOUT --</div>
+<div class="oline">  [OK]  Logged out. Session &amp; Cookie cleared.</div>
+<div class="oline">  ============================================================</div>
+<div class="oline">  Generated: 06-04-2026 10:35:22</div>
+<div class="oline">  ============================================================</div>
+      <br>
+      <div><span class="prompt">rishav@23MEI10002</span>:<span class="ppath">~/MYSQL_ASSIGNMENTS</span>$<span class="cursor"></span></div>
+    </div>
+  </div>
+</div>
+</body></html>
